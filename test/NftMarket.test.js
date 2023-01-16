@@ -55,7 +55,7 @@ const { developmentChains } = require("../helper-hardhat-config")
           })
 
           describe("listNFT", () => {
-              const tokenUri = "some-token-uri"
+              const tokenUri = "listing"
               beforeEach(async () => {
                   tokenId = await createNft(tokenUri)
               })
@@ -91,7 +91,7 @@ const { developmentChains } = require("../helper-hardhat-config")
 
                   assert.equal(args.to, nftMarket.address)
 
-                  assert.equal(args.tokenUri, "")
+                  assert.equal(args.tokenUri, tokenUri)
                   assert.equal(args.price, 2)
               })
           })
@@ -99,7 +99,7 @@ const { developmentChains } = require("../helper-hardhat-config")
           describe("buyNFT", () => {
               let tokenId, tokenUri
               beforeEach(async () => {
-                  tokenUri = "random"
+                  tokenUri = "buying"
                   tokenId = await createNft(tokenUri)
               })
               it("reverts if NFT is not listed", async () => {
@@ -161,7 +161,7 @@ const { developmentChains } = require("../helper-hardhat-config")
                   assert.equal(args.tokenId.toString(), tokenId.toString())
                   assert.equal(args.from, nftMarket.address)
                   assert.equal(args.to, randomUser.address)
-                  assert.equal(args.tokenUri, "")
+                  assert.equal(args.tokenUri, tokenUri)
                   assert.equal(args.price, 0)
               })
           })
@@ -202,7 +202,7 @@ const { developmentChains } = require("../helper-hardhat-config")
                   assert.equal(args.from, nftMarket.address)
 
                   assert.equal(args.to, deployer.address)
-                  assert.equal(args.tokenUri, "")
+                  assert.equal(args.tokenUri, tokenUri)
                   assert.equal(args.price, 0)
               })
           })

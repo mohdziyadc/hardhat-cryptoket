@@ -85,7 +85,13 @@ contract NFTMarket is ERC721URIStorage, Ownable {
         //Entering it into our mapping
         s_listings[tokenId] = Listing(price, msg.sender);
 
-        emit NftTransfer(tokenId, msg.sender, address(this), "", price);
+        emit NftTransfer(
+            tokenId,
+            msg.sender,
+            address(this),
+            tokenURI(tokenId),
+            price
+        );
     }
 
     /**
@@ -111,7 +117,13 @@ contract NFTMarket is ERC721URIStorage, Ownable {
         //transferring 95% of ETH from sale to seller. 5% to the marketplace.
         payable(listedNFT.seller).transfer(listedNFT.price.mul(95).div(100));
 
-        emit NftTransfer(tokenId, address(this), msg.sender, "", 0);
+        emit NftTransfer(
+            tokenId,
+            address(this),
+            msg.sender,
+            tokenURI(tokenId),
+            0
+        );
     }
 
     /**
@@ -124,7 +136,13 @@ contract NFTMarket is ERC721URIStorage, Ownable {
         delete s_listings[tokenId];
         ERC721(address(this)).transferFrom(address(this), msg.sender, tokenId);
 
-        emit NftTransfer(tokenId, address(this), msg.sender, "", 0);
+        emit NftTransfer(
+            tokenId,
+            address(this),
+            msg.sender,
+            tokenURI(tokenId),
+            0
+        );
     }
 
     function withdrawFunds() public onlyOwner {
